@@ -6,8 +6,8 @@ import './assets/styles/layout.scss'
 import './assets/demo/flags/flags.css'
 
 import { createApp, reactive } from 'vue'
-import router from './router'
-import App from './App.vue'
+import router from '@/router'
+import App from '@/App.vue'
 import PrimeVue from 'primevue/config'
 import AutoComplete from 'primevue/autocomplete'
 import Accordion from 'primevue/accordion'
@@ -99,7 +99,7 @@ router.beforeEach(function (to, from, next) {
 	next()
 })
 
-const appState = reactive({ theme: 'saga-blue' })
+const appState = reactive({ theme: 'arya-blue' })
 
 const app = createApp(App)
 app.provide('$appState', appState)

@@ -90,7 +90,7 @@
 			const route = useRoute()
 			const scale = ref(16)
 			const scales = [12,13,14,15,16]
-			const themeScheme = ref('saga')
+			const themeScheme = ref('arya')
 			const themeColor = ref('blue')
 			const d_layoutMode = ref(props.layoutMode)
 			const d_layoutColorMode = ref(props.layoutColorMode)

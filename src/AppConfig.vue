@@ -1,5 +1,5 @@
 <template>
-	<div id="layout-config" :class="containerClass">
+	<div ref="el" id="layout-config" :class="containerClass">
 		<a href="#" class="layout-config-button" id="layout-config-button" @click="toggleConfigurator">
 			<i class="pi pi-cog"></i>
 		</a>
@@ -16,11 +16,11 @@
 			<h6>Input Style</h6>
 			<div class="p-formgroup-inline">
 				<div class="field-radiobutton">
-					<RadioButton id="input_outlined" name="inputstyle" value="outlined" :modelValue="$primevue.config.inputStyle" @change="changeInputStyle('outlined')" />
+					<RadioButton id="input_outlined" name="inputstyle" value="outlined" :modelValue="primevue.config.inputStyle" @change="changeInputStyle('outlined')" />
 					<label for="input_outlined">Outlined</label>
 				</div>
 				<div class="field-radiobutton">
-					<RadioButton id="input_filled" name="inputstyle" value="filled" :modelValue="$primevue.config.inputStyle" @change="changeInputStyle('filled')" />
+					<RadioButton id="input_filled" name="inputstyle" value="filled" :modelValue="primevue.config.inputStyle" @change="changeInputStyle('filled')" />
 					<label for="input_filled">Filled</label>
 				</div>
 			</div>
@@ -67,8 +67,12 @@
 	</div>
 </template>
 
-<script>
-	export default {
+<script lang="ts">
+	import { defineComponent, computed, inject, watch, ref } from 'vue'
+	import { useRoute } from 'vue-router'
+	import { usePrimeVue } from 'primevue/config'
+
+	export default defineComponent({
 		props: {
 			layoutMode: {
 				type: String,
@@ -79,116 +83,159 @@
 				default: null
 			}
 		},
-		data() {
-			return {
-				active: false,
-				d_layoutMode: this.layoutMode,
-				d_layoutColorMode: this.layoutColorMode,
-				scale: 16,
-				scales: [12,13,14,15,16],
-				themeScheme: 'saga',
-				themeColor: 'blue'
-			}
-		},
-		watch: {
-			$route() {
-				if (this.active) {
-					this.active = false;
-					this.unbindOutsideClickListener();
-				}
-			},
-			layoutMode(newValue) {
-				this.d_layoutMode = newValue;
-			},
-			layoutColorMode(newValue) {
-				this.d_layoutColorMode = newValue;
-			}
-		},
-		outsideClickListener: null,
-		methods: {
-			toggleConfigurator(event) {
-				this.active = !this.active;
-				event.preventDefault();
+		setup(props, { emit }) {
+			const appState = inject('$appState') as { theme: string, inputStyle: string }
+			const primevue = usePrimeVue()
+			const active = ref(false)
+			const route = useRoute()
+			const scale = ref(16)
+			const scales = [12,13,14,15,16]
+			const themeScheme = ref('saga')
+			const themeColor = ref('blue')
+			const d_layoutMode = ref(props.layoutMode)
+			const d_layoutColorMode = ref(props.layoutColorMode)
+			const el = ref(null as Element | null)
 
-				if (this.active)
-					this.bindOutsideClickListener();
-				else
-					this.unbindOutsideClickListener();
-			},
-			hideConfigurator(event) {
-				this.active = false;
-				this.unbindOutsideClickListener();
-				event.preventDefault();
-			},
-			changeInputStyle(value) {
-				this.$primevue.config.inputStyle = value;
-			},
-			changeRipple(value) {
-				this.$primevue.config.ripple = value;
-			},
-			changeLayout(event, layoutMode) {
-				this.$emit('layout-change', layoutMode);
-				event.preventDefault();
-			},
-			changeLayoutColor(event, layoutColor) {
-				this.$emit('layout-color-change', layoutColor);
-				event.preventDefault();
-			},
-			bindOutsideClickListener() {
-				if (!this.outsideClickListener) {
-					this.outsideClickListener = (event) => {
-						if (this.active && this.isOutsideClicked(event)) {
-							this.active = false;
-						}
-					};
-					document.addEventListener('click', this.outsideClickListener);
+			let outsideClickListener: undefined | ((event: any) => void)
+
+			const toggleConfigurator = (event: any) => {
+				active.value = !active.value
+				event.preventDefault()
+
+				if (active.value) {
+					bindOutsideClickListener()
+				} else {
+					unbindOutsideClickListener()
 				}
-			},
-			unbindOutsideClickListener() {
-				if (this.outsideClickListener) {
-					document.removeEventListener('click', this.outsideClickListener);
-					this.outsideClickListener = null;
-				}
-			},
-			isOutsideClicked(event) {
-				return !(this.$el.isSameNode(event.target) || this.$el.contains(event.target));
-			},
-			decrementScale() {
-				this.scale--;
-				this.applyScale();
-			},
-			incrementScale() {
-				this.scale++;
-				this.applyScale();
-			},
-			applyScale() {
-				document.documentElement.style.fontSize = this.scale + 'px';
-			},
-			changeTheme() {
-				let theme = this.themeScheme + '-' + this.themeColor;
-				let themeElement = document.getElementById('theme-link');
-				themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.$appState.theme, theme));
-				this.$appState.theme = theme;
-			},
-			changeThemeScheme(scheme) {
-				this.themeScheme = scheme;
-				this.changeTheme();
-			},
-			changeThemeColor(color) {
-				this.themeColor = color;
-				this.changeTheme();
 			}
-		},
-		computed: {
-			containerClass() {
-				return ['layout-config', {'layout-config-active': this.active}];
-			},
-			rippleActive() {
-				return this.$primevue.config.ripple;
-			},
-			inputStyle() {
-				return this.$appState.inputStyle;
+			const hideConfigurator = (event: any) => {
+				active.value = false
+				unbindOutsideClickListener()
+				event.preventDefault()
+			}
+
+			const changeInputStyle = (value: string) => {
+				primevue.config.inputStyle = value
+			}
+
+			const changeRipple = (value: boolean) => {
+				primevue.config.ripple = value
+			}
+
+			const changeLayout = (event: any, layoutMode: any) => {
+				emit('layout-change', layoutMode)
+				event.preventDefault()
+			}
+
+			const changeLayoutColor = (event: any, layoutColor: any) => {
+				emit('layout-color-change', layoutColor)
+				event.preventDefault()
+			}
+
+			const bindOutsideClickListener = () => {
+				if (!outsideClickListener) {
+					outsideClickListener = (event) => {
+						if (active.value && isOutsideClicked(event)) {
+							active.value = false
+						}
+					}
+					document.addEventListener('click', outsideClickListener)
+				}
+			}
+			
+			const unbindOutsideClickListener = () => {
+				if (outsideClickListener) {
+					document.removeEventListener('click', outsideClickListener)
+					outsideClickListener = undefined
+				}
+			}
+
+			const isOutsideClicked = (event: any) => {
+				return !(el.value?.isSameNode(event.target) || el.value?.contains(event.target))
+			}
+			const decrementScale = () => {
+				scale.value--
+				applyScale()
+			}
+
+			const incrementScale = () => {
+				scale.value++
+				applyScale()
+			}
+
+			const applyScale = () => {
+				document.documentElement.style.fontSize = scale.value + 'px'
+			}
+
+			const changeTheme = () => {
+				let theme = themeScheme.value + '-' + themeColor.value
+				let themeElement = document.getElementById('theme-link')
+				themeElement?.setAttribute('href', themeElement?.getAttribute('href')?.replace(appState.theme, theme) ?? '')
+				appState.theme = theme
+			}
+
+			const changeThemeScheme = (scheme: string) => {
+				themeScheme.value = scheme
+				changeTheme()
+			}
+
+			const changeThemeColor = (color: string) => {
+				themeColor.value = color
+				changeTheme()
+			}
+
+			watch (() => route, () => {
+				if (active.value) {
+					active.value = false
+					unbindOutsideClickListener()
+				}
+			})
+
+			watch (() => d_layoutMode, (curr) => {
+				d_layoutMode.value = curr.value
+			})
+
+			watch (() => d_layoutColorMode, (curr) => {
+				d_layoutColorMode.value = curr.value
+			})
+
+			const containerClass = computed(() => {
+				return ['layout-config', {'layout-config-active': active.value}]
+			})
+
+			const rippleActive = computed(() => {
+				return primevue.config.ripple
+			})
+
+			const inputStyle = computed(() => {
+				return $appState.inputStyle
+			})
+
+			return {
+				el,
+				active,
+				scales,
+				scale,
+				themeScheme,
+				d_layoutMode,
+				d_layoutColorMode,
+				toggleConfigurator,
+				hideConfigurator,
+				changeInputStyle,
+				changeRipple,
+				changeLayout,
+				changeLayoutColor,
+				decrementScale,
+				incrementScale,
+				applyScale,
+				changeTheme,
+				changeThemeScheme,
+				changeThemeColor,
+				containerClass,
+				rippleActive,
+				inputStyle,
+				primevue
 			}
 		}
-	}
+	})
 </script>

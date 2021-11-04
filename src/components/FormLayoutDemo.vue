@@ -108,17 +108,24 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		data() {
+<script lang="ts">
+	import { defineComponent, ref } from 'vue'
+
+	export default defineComponent({
+		name: 'FormLayoutDemo',
+		setup() {
+			const dropdownItems = [
+				{name: 'Option 1', code: 'Option 1'},
+				{name: 'Option 2', code: 'Option 2'},
+				{name: 'Option 3', code: 'Option 3'}
+			]
+
+			const dropdownItem = ref(null)
+
 			return {
-				dropdownItems: [
-					{name: 'Option 1', code: 'Option 1'},
-					{name: 'Option 2', code: 'Option 2'},
-					{name: 'Option 3', code: 'Option 3'}
-				],
-				dropdownItem: null
+				dropdownItems,
+				dropdownItem
 			}
 		}
-	}
+	})
 </script>

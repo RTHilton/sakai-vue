@@ -1,5 +1,4 @@
 <template>
-
 	<div class="grid p-fluid">
 		<div class="col-12 lg:col-6">
 			<div class="card">
@@ -36,11 +35,13 @@
 	</div>
 </template>
 
-<script>
-export default {
-	data() {
-		return {
-			lineData: {
+<script lang="ts">
+	import { defineComponent } from 'vue'
+
+	export default defineComponent({
+		name: 'ChartDemo',
+		setup() {
+			const lineData = {
 				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
 				datasets: [
 					{
@@ -60,8 +61,9 @@ export default {
 						tension: 0.4
 					}
 				]
-			},
-			pieData: {
+			}
+
+			const pieData = {
 				labels: ['A','B','C'],
 				datasets: [
 					{
@@ -78,8 +80,9 @@ export default {
 						]
 					}
 				]
-			},
-			polarData: {
+			}
+
+			const polarData = {
 				datasets: [{
 					data: [
 						11,
@@ -104,8 +107,9 @@ export default {
 					"Grey",
 					"Blue"
 				]
-			},
-			barData: {
+			}
+
+			const barData = {
 				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
 				datasets: [
 					{
@@ -119,8 +123,9 @@ export default {
 						data: [28, 48, 40, 19, 86, 27, 90]
 					}
 				]
-			},
-			doughnutData: {
+			}
+
+			const doughnutData = {
 				labels: ['A','B','C'],
 				datasets: [
 					{
@@ -137,8 +142,9 @@ export default {
 						]
 					}
 				]
-			},
-			radarData: {
+			}
+
+			const radarData = {
 				labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
 				datasets: [
 					{
@@ -163,7 +169,15 @@ export default {
 					}
 				]
 			}
+
+			return {
+				lineData,
+				pieData,
+				polarData,
+				barData,
+				doughnutData,
+				radarData
+			}
 		}
-	}
-}
+	})
 </script>

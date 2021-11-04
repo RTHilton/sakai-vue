@@ -6,15 +6,23 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		name: "AppFooter",
-		computed: {
-			darkTheme() {
-				return this.$appState.theme.startsWith('saga');
+<script lang="ts">
+	import { defineComponent, computed, inject } from 'vue'
+
+	export default defineComponent({
+		name: 'AppFooter',
+		setup() {
+			const appState = inject('$appState') as { theme: string, inputStyle: string }
+
+			const darkTheme = computed(() => {
+				return appState.theme.startsWith('saga');
+			})
+
+			return {
+				darkTheme
 			}
 		}
-	}
+	})
 </script>
 
 <style scoped>

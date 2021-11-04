@@ -26,7 +26,7 @@
 					<div class="col-6">
 						<Button type="button" label="Image" @click="toggle" class="p-button-success"/>
 						<OverlayPanel ref="op" appendTo="body" :showCloseIcon="true">
-							<img src="images/nature/nature9.jpg" alt="Nature 9" />
+							<img src="/images/nature/nature9.jpg" alt="Nature 9" />
 						</OverlayPanel>
 					</div>
 					<div class="col-6">
@@ -69,31 +69,31 @@
 			<div class="card">
 				<h5>Sidebar</h5>
 				<Sidebar v-model:visible="visibleLeft" :baseZIndex="1000">
-					<h1 style="fontWeight:normal">Left Sidebar</h1>
+					<h1 style="font-weight:normal">Left Sidebar</h1>
 					<Button type="button" @click="visibleLeft = false" label="Save" class="p-button-success" style="margin-right:.25em" />
 					<Button type="button" @click="visibleLeft = false" label="Cancel" class="p-button-secondary"/>
 				</Sidebar>
 
 				<Sidebar v-model:visible="visibleRight" :baseZIndex="1000" position="right">
-					<h1 style="fontWeight:normal">Right Sidebar</h1>
+					<h1 style="font-weight:normal">Right Sidebar</h1>
 					<Button type="button" @click="visibleRight = false" label="Save" class="p-button-success" style="margin-right:.25em" />
 					<Button type="button" @click="visibleRight = false" label="Cancel" class="p-button-secondary"/>
 				</Sidebar>
 
 				<Sidebar v-model:visible="visibleTop" :baseZIndex="1000" position="top">
-					<h1 style="fontWeight:normal">Top Sidebar</h1>
+					<h1 style="font-weight:normal">Top Sidebar</h1>
 					<Button type="button" @click="visibleTop = false" label="Save" class="p-button-success" style="margin-right:.25em" />
 					<Button type="button" @click="visibleTop = false" label="Cancel" class="p-button-secondary"/>
 				</Sidebar>
 
 				<Sidebar v-model:visible="visibleBottom" :baseZIndex="1000" position="bottom">
-					<h1 style="fontWeight:normal">Bottom Sidebar</h1>
+					<h1 style="font-weight:normal">Bottom Sidebar</h1>
 					<Button type="button" @click="visibleBottom = false" label="Save" class="p-button-success" style="margin-right:.25em" />
 					<Button type="button" @click="visibleBottom = false" label="Cancel" class="p-button-secondary"/>
 				</Sidebar>
 
 				<Sidebar v-model:visible="visibleFull" :baseZIndex="1000" position="full">
-					<h1 style="fontWeight:normal">Full Screen</h1>
+					<h1 style="font-weight:normal">Full Screen</h1>
 					<Button type="button" @click="visibleFull = false" label="Save" class="p-button-success" style="margin-right:.25em" />
 					<Button type="button" @click="visibleFull = false" label="Cancel" class="p-button-secondary"/>
 				</Sidebar>
@@ -127,69 +127,103 @@
 	</div>
 </template>
 
-<script>
-	import ProductService from '../service/ProductService'
+<script lang="ts">
+	import { defineComponent, ref, onMounted } from 'vue'
+	import ProductService from '@/service/ProductService'
+	import { useToast } from 'primevue/usetoast'
+	import { useConfirm } from 'primevue/useconfirm'
+	import OverlayPanel from 'primevue/overlaypanel'
 
-	export default {
-		data() {
-			return {
-				display: false,
-				displayConfirmation: false,
-				visibleLeft: false,
-				visibleRight: false,
-				visibleTop: false,
-				visibleBottom: false,
-				visibleFull: false,
-				products: null,
-				selectedProduct: null
+	export default defineComponent({
+		name: 'OverlayDemo',
+		setup() {
+			const toast = useToast()
+			const $confirm = useConfirm()
+			const productService = new ProductService()
+			const display = ref(false)
+			const displayConfirmation = ref(false)
+			const visibleLeft = ref(false)
+			const visibleRight = ref(false)
+			const visibleTop = ref(false)
+			const visibleBottom = ref(false)
+			const visibleFull = ref(false)
+			const products = ref(null)
+			const selectedProduct = ref(null)
+			const op = ref(null as OverlayPanel | null)
+			const op2 = ref(null as OverlayPanel | null)
+
+			const open = () => {
+				display.value = true
 			}
-		},
-		productService: null,
-		created() {
-			this.productService = new ProductService();
-		},
-		mounted() {
-			this.productService.getProductsSmall().then(data => this.products = data);
-		},
-		methods: {
-			open() {
-				this.display = true;
-			},
-			close() {
-				this.display = false;
-			},
-			openConfirmation() {
-				this.displayConfirmation = true;
-			},
-			closeConfirmation() {
-				this.displayConfirmation = false;
-			},
-			toggle(event) {
-				this.$refs.op.toggle(event);
-			},
-			toggleDataTable(event) {
-				this.$refs.op2.toggle(event);
-			},
-			formatCurrency(value) {
+
+			const close = () => {
+				display.value = false;
+			}
+
+			const openConfirmation = () => {
+				displayConfirmation.value = true;
+			}
+
+			const closeConfirmation = () => {
+				displayConfirmation.value = false;
+			}
+
+			const toggle = (event: any) => {
+				op.value?.toggle(event);
+			}
+
+			const toggleDataTable = (event: any) => {
+				op2.value?.toggle(event);
+			}
+
+			const formatCurrency = (value: string | number) => {
 				return value.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-			},
-			onProductSelect(event) {
-				this.$refs.op.hide();
-				this.$toast.add({severity:'info', summary: 'Product Selected', detail: event.data.name, life: 3000});
-			},
-			confirm(event) {
-				this.$confirm.require({
+			}
+			const onProductSelect = (event: any) => {
+				op.value?.hide();
+				toast.add({severity:'info', summary: 'Product Selected', detail: event.data.name, life: 3000});
+			}
+
+			const confirm = (event: any) => {
+				$confirm.require({
 					target: event.currentTarget,
 					message: 'Are you sure you want to proceed?',
 					icon: 'pi pi-exclamation-triangle',
 					accept: () => {
-						this.$toast.add({severity:'info', summary:'Confirmed', detail:'You have accepted', life: 3000});
+						toast.add({severity:'info', summary:'Confirmed', detail:'You have accepted', life: 3000});
 					},
 					reject: () => {
-						this.$toast.add({severity:'error', summary:'Rejected', detail:'You have rejected', life: 3000});
+						toast.add({severity:'error', summary:'Rejected', detail:'You have rejected', life: 3000});
 					}
 				});
 			}
+
+			onMounted(() => {
+				productService.getProductsSmall().then(data => products.value = data);
+			})
+
+			return {
+				display,
+				displayConfirmation,
+				visibleLeft,
+				visibleRight,
+				visibleTop,
+				visibleBottom,
+				visibleFull,
+				products,
+				selectedProduct,
+				op,
+				op2,
+				open,
+				close,
+				openConfirmation,
+				closeConfirmation,
+				toggle,
+				toggleDataTable,
+				formatCurrency,
+				onProductSelect,
+				confirm
+			}
 		}
-	}
+	})
 </script>

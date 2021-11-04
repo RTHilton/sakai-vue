@@ -60,40 +60,64 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-				message: [],
-				username:null,
-				email:null
+<script lang="ts">
+	import { defineComponent, ref } from 'vue'
+	import { useToast } from 'primevue/usetoast'
+
+	export default defineComponent({
+		name: 'MessagesDemo',
+		setup() {
+			const toast = useToast()
+
+			const message = ref([] as any[])
+			const username = ref(null)
+			const email = ref(null)
+
+			const addSuccessMessage = () => {
+				message.value = [{severity: 'success', content: 'Message Detail'}]
 			}
-		},
-		methods: {
-			addSuccessMessage() {
-				this.message = [{severity: 'success', content: 'Message Detail'}]
-			},
-			addInfoMessage() {
-				this.message = [{severity: 'info', content: 'Message Detail'}]
-			},
-			addWarnMessage() {
-				this.message = [{severity: 'warn', content: 'Message Detail'}]
-			},
-			addErrorMessage() {
-				this.message = [{severity: 'error', content: 'Message Detail'}]
-			},
-			showSuccess() {
-				this.$toast.add({severity:'success', summary: 'Success Message', detail:'Message Detail', life: 3000});
-			},
-			showInfo() {
-				this.$toast.add({severity:'info', summary: 'Info Message', detail:'Message Detail', life: 3000});
-			},
-			showWarn() {
-				this.$toast.add({severity:'warn', summary: 'Warn Message', detail:'Message Detail', life: 3000});
-			},
-			showError() {
-				this.$toast.add({severity:'error', summary: 'Error Message', detail:'Message Detail', life: 3000});
-			},
+
+			const addInfoMessage = () => {
+				message.value = [{severity: 'info', content: 'Message Detail'}]
+			}
+
+			const addWarnMessage = () => {
+				message.value = [{severity: 'warn', content: 'Message Detail'}]
+			}
+
+			const addErrorMessage = () => {
+				message.value = [{severity: 'error', content: 'Message Detail'}]
+			}
+
+			const showSuccess = () => {
+				toast.add({severity:'success', summary: 'Success Message', detail:'Message Detail', life: 3000});
+			}
+
+			const showInfo = () => {
+				toast.add({severity:'info', summary: 'Info Message', detail:'Message Detail', life: 3000});
+			}
+
+			const showWarn = () => {
+				toast.add({severity:'warn', summary: 'Warn Message', detail:'Message Detail', life: 3000});
+			}
+
+			const showError = () => {
+				toast.add({severity:'error', summary: 'Error Message', detail:'Message Detail', life: 3000});
+			}
+
+			return {
+				message,
+				username,
+				email,
+				addSuccessMessage,
+				addInfoMessage,
+				addWarnMessage,
+				addErrorMessage,
+				showSuccess,
+				showInfo,
+				showWarn,
+				showError
+			}
 		}
-	}
+	})
 </script>

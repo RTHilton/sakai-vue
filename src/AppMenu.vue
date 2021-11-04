@@ -7,27 +7,34 @@
 	</div>
 </template>
 
-<script>
-import AppSubmenu from './AppSubmenu';
+<script lang="ts">
+	import { defineComponent, computed, inject } from 'vue'
+	import AppSubmenu from './AppSubmenu.vue'
 
-export default {
-	props: {
-		model: Array
-	},
-    methods: {
-        onMenuItemClick(event) {
-            this.$emit('menuitem-click', event);
-        }
-    },
-	computed: {
-		darkTheme() {
-			return this.$appState.theme.startsWith('saga');
+	export default defineComponent({
+		props: {
+			model: Array
+		},
+		components: {
+			AppSubmenu
+		},
+		setup(props, { emit }) {
+			const appState = inject('$appState') as { theme: string, inputStyle: string }
+
+			const onMenuItemClick = (event: any) => {
+				emit('menuitem-click', event)
+			}
+
+			const darkTheme = computed(() => {
+				return appState.theme.startsWith('saga')
+			})
+
+			return {
+				onMenuItemClick,
+				darkTheme
+			}
 		}
-	},
-	components: {
-		'AppSubmenu': AppSubmenu
-	}
-}
+	})
 </script>
 
 <style scoped>

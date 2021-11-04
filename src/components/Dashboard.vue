@@ -291,7 +291,7 @@
 	export default defineComponent({
 		name: 'Dashboard',
 		setup() {
-			const products = ref([])
+			const products = ref([] as any[])
 			const productService = new ProductService()
 			const menu1 = ref(null as Menu | null)
 			const menu2 = ref(null as Menu | null)

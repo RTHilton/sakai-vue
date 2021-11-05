@@ -421,16 +421,16 @@
 			const customerService = new CustomerService()
 			const productService = new ProductService()
 
-			const customer1 = ref(null)
-			const customer2 = ref(null)
-			const customer3 = ref(null)
-			const filters1 = ref(null)
-			const filters2 = ref({})
+			const customer1 = ref({} as any)
+			const customer2 = ref({} as any)
+			const customer3 = ref({} as any)
+			const filters1 = ref({} as any)
+			const filters2 = ref({} as any)
 			const loading1 = ref(true)
 			const loading2 = ref(true)
 			const idFrozen = ref(false)
-			const products = ref(null)
-			const expandedRows = ref([])
+			const products = ref([] as any[])
+			const expandedRows = ref([] as any[] | null)
 			
 			const statuses = [
 				'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
@@ -475,11 +475,11 @@
 				expandedRows.value = null
 			}
 
-			const formatCurrency = (value) => {
+			const formatCurrency = (value: number) => {
 				return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 			}
 
-			const formatDate = (value) => {
+			const formatDate = (value: Date) => {
 				return value.toLocaleDateString('en-US', {
 					day: '2-digit',
 					month: '2-digit',
@@ -487,7 +487,7 @@
 				})
 			}
 
-			const calculateCustomerTotal = (name) => {
+			const calculateCustomerTotal = (name: string) => {
 				let total = 0
 				if (customer3.value) {
 					for (let customer of customer3.value) {
@@ -505,7 +505,7 @@
 				customerService.getCustomersLarge().then(data => {
 					customer1.value = data
 					loading1.value = false
-					customer1.value.forEach(customer => customer.date = new Date(customer.date))
+					customer1.value.forEach((customer: any) => customer.date = new Date(customer.date))
 				})
 				customerService.getCustomersLarge().then(data => customer2.value = data)
 				customerService.getCustomersMedium().then(data => customer3.value = data)

@@ -198,7 +198,7 @@
 		name: 'MiscDemo',
 		setup() {
 			const value = ref(0)
-			const interval = ref(null)
+			const interval = ref(0)
 
 			const startProgress = () => {
 				interval.value = setInterval(() => {
@@ -212,7 +212,7 @@
 
 			const endProgress = () => {
 				clearInterval(interval.value)
-				interval.value = null
+				interval.value = 0
 			}
 
 			onMounted(() => {

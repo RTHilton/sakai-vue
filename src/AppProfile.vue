@@ -40,7 +40,7 @@
 		setup() {
 			const expanded = ref(false)
 
-			const onClick = (event) => {
+			const onClick = (event: any) => {
 				expanded.value = !expanded.value
 				event.preventDefault()
 			}

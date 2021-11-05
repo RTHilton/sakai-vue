@@ -18,12 +18,8 @@
 				return appState.darkTheme ? 'images/logo-white.svg' : 'images/logo-dark.svg'
 			}
 
-			const darkTheme = computed(() => {
-				return appState.theme.startsWith('saga');
-			})
-
 			return {
-				darkTheme
+				footerImage
 			}
 		}
 	})

@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-topbar">
 		<router-link to="/" class="layout-topbar-logo">
-			<img alt="Logo" :src="darkTheme ? 'images/logo-dark.svg' : 'images/logo-white.svg'" />
+			<img alt="Logo" :src="topbarImage()" />
 			<span>SAKAI</span>
 		</router-link>
 		<button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle">
@@ -45,7 +45,7 @@ import { defineComponent, computed, inject } from 'vue'
 export default defineComponent({
 	name: 'AppTopbar',
 	setup(_, { emit }) {
-		const appState = inject('$appState') as { theme: string, inputStyle: string }
+		const appState = inject('$appState') as { theme: string, inputStyle: string, darkTheme: boolean }
 		
 		const onMenuToggle = (event: any) => {
 			emit('menu-toggle', event)
@@ -54,9 +54,13 @@ export default defineComponent({
 		const onTopbarMenuToggle = (event: any) => {
 			emit('topbar-menu-toggle', event)
 		}
+
+		const topbarImage = () => {
+			return appState.darkTheme ? 'images/logo-white.svg' : 'images/logo-dark.svg'
+		}
 		
 		const darkTheme = computed(() => {
-			return appState.theme.startsWith('saga')
+			return appState.darkTheme
 		})
 
 		return {

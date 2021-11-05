@@ -2,7 +2,7 @@
 	<div class="layout-menu-container">
 		<AppSubmenu :items="model" class="layout-menu" :root="true" @menuitem-click="onMenuItemClick" />
 		<a href="https://www.primefaces.org/primeblocks-vue" class="block mt-3">
-			<img alt="primeblocks" :src="darkTheme ? 'images/banner-primeblocks.png' : 'images/banner-primeblocks-dark.png'" class="w-full" />
+			<img alt="primeblocks" :src="bannerImage()" class="w-full" />
 		</a>
 	</div>
 </template>
@@ -19,19 +19,24 @@
 			AppSubmenu
 		},
 		setup(props, { emit }) {
-			const appState = inject('$appState') as { theme: string, inputStyle: string }
+			const appState = inject('$appState') as { theme: string, inputStyle: string, darkTheme: boolean }
 
 			const onMenuItemClick = (event: any) => {
 				emit('menuitem-click', event)
 			}
 
+			const bannerImage = () => {
+				return appState.darkTheme ? 'images/banner-primeblocks-dark.png' : 'images/banner-primeblocks.png'
+			}
+
 			const darkTheme = computed(() => {
-				return appState.theme.startsWith('saga')
+				return appState.darkTheme
 			})
 
 			return {
 				onMenuItemClick,
-				darkTheme
+				darkTheme,
+				bannerImage
 			}
 		}
 	})

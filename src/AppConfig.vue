@@ -208,7 +208,7 @@
 			})
 
 			const inputStyle = computed(() => {
-				return $appState.inputStyle
+				return appState.inputStyle
 			})
 
 			return {

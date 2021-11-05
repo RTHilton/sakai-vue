@@ -4,6 +4,11 @@ import 'primeicons/primeicons.css'
 import 'prismjs/themes/prism-coy.css'
 import './assets/styles/layout.scss'
 import './assets/demo/flags/flags.css'
+import * as ace from 'ace-builds/src-noconflict/ace'
+import 'ace-builds/src-noconflict/mode-json'
+import 'ace-builds/src-noconflict/mode-json5'
+import 'ace-builds/src-noconflict/theme-monokai'
+import 'ace-builds/src-noconflict/theme-twilight'
 
 import { createApp, reactive } from 'vue'
 import router from '@/router'
@@ -92,7 +97,11 @@ import Tree from 'primevue/tree'
 import TreeTable from 'primevue/treetable'
 import TriStateCheckbox from 'primevue/tristatecheckbox'
 
-import CodeHighlight from './AppCodeHighlight'
+ace.config.set('basePath', '/')
+
+import CodeHighlight from '@/AppCodeHighlight'
+
+import { VAceEditor } from 'vue3-ace-editor'
 
 router.beforeEach(function (to, from, next) {
 	window.scrollTo(0, 0)
@@ -191,5 +200,5 @@ app.component('ToggleButton', ToggleButton)
 app.component('Tree', Tree)
 app.component('TreeTable', TreeTable)
 app.component('TriStateCheckbox', TriStateCheckbox)
-
+app.component('AceEditor', VAceEditor)
 app.mount('#app')

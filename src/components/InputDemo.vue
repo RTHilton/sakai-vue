@@ -224,19 +224,19 @@
 		setup() {
 			const countryService = new CountryService()
 
-			const floatValue = ref(null)
-			const autoValue = ref(null)
-			const selectedAutoValue = ref(null)
-			const autoFilteredValue = ref([])
-			const calendarValue = ref(null)
-			const inputNumberValue = ref(null)
-			const chipsValue = ref(null)
+			const floatValue = ref(null as number | null)
+			const autoValue = ref(null as any | null)
+			const selectedAutoValue = ref(null as any | null)
+			const autoFilteredValue = ref([] as any[])
+			const calendarValue = ref(null as string | null)
+			const inputNumberValue = ref(null as number | null)
+			const chipsValue = ref(null as string | null)
 			const sliderValue = ref(50)
-			const ratingValue = ref(null)
+			const ratingValue = ref(null as number | null)
 			const colorValue = ref('1976D2')
-			const radioValue = ref(null)
+			const radioValue = ref(null as boolean | null)
 			const checkboxValue = ref([])
-			const switchValue = ref(false)
+			const switchValue = ref(null as boolean | null)
 			const listboxValues = [
 				{name: 'New York', code: 'NY'},
 				{name: 'Rome', code: 'RM'},
@@ -244,7 +244,7 @@
 				{name: 'Istanbul', code: 'IST'},
 				{name: 'Paris', code: 'PRS'}
 			]
-			const listboxValue = ref(null)
+			const listboxValue = ref(null as string | null)
 			const dropdownValues = [
 				{name: 'New York', code: 'NY'},
 				{name: 'Rome', code: 'RM'},
@@ -252,8 +252,8 @@
 				{name: 'Istanbul', code: 'IST'},
 				{name: 'Paris', code: 'PRS'}
 			]
-			const dropdownValue= ref(null)
-			const multiselectValue= ref(null)
+			const dropdownValue= ref(null as string[] | null)
+			const multiselectValue= ref(null as string | null)
 			const multiselectValues = [
 				{name: 'Australia', code: 'AU'},
 				{name: 'Brazil', code: 'BR'},
@@ -272,23 +272,23 @@
 				{name: 'Option 2', code: 'O2'},
 				{name: 'Option 3', code: 'O3'},
 			]
-			const selectButtonValue1= ref(null)
+			const selectButtonValue1= ref(null as string | null)
 			const selectButtonValues2 = [
 				{name: 'Option 1', code: 'O1'},
 				{name: 'Option 2', code: 'O2'},
 				{name: 'Option 3', code: 'O3'},
 			]
-			const selectButtonValue2 = ref(null)
+			const selectButtonValue2 = ref(null as string | null)
 			const inputGroupValue = ref(false)
 			const knobValue = ref(20)
 
-			const searchCountry = (event) => {
+			const searchCountry = (event: any) => {
 				setTimeout(() => {
 					if (!event.query.trim().length) {
 						autoFilteredValue.value = [...autoValue.value]
 					}
 					else {
-						autoFilteredValue.value = autoValue.value.filter((country) => {
+						autoFilteredValue.value = autoValue.value.filter((country: any) => {
 							return country.name.toLowerCase().startsWith(event.query.toLowerCase())
 						});
 					}

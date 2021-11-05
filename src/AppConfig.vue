@@ -45,22 +45,22 @@
 			<div class="grid free-themes">
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'bootstrap4-light-blue')">
-						<img src="images/themes/bootstrap4-light-blue.svg" alt="Bootstrap Light Blue" />
+						<img src="/images/themes/bootstrap4-light-blue.svg" alt="Bootstrap Light Blue" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'bootstrap4-light-purple')">
-						<img src="images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Blue" />
+						<img src="/images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Blue" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'bootstrap4-dark-blue', true)">
-						<img src="images/themes/bootstrap4-dark-blue.svg" alt="Bootstrap Dark Blue" />
+						<img src="/images/themes/bootstrap4-dark-blue.svg" alt="Bootstrap Dark Blue" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'bootstrap4-dark-purple', true)">
-						<img src="images/themes/bootstrap4-dark-purple.svg" alt="Bootstrap Dark Blue" />
+						<img src="/images/themes/bootstrap4-dark-purple.svg" alt="Bootstrap Dark Blue" />
 					</button>
 				</div>
 			</div>
@@ -69,22 +69,22 @@
 			<div class="grid free-themes">
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'md-light-indigo')">
-						<img src="images/themes/md-light-indigo.svg" alt="Material Light Indigo" />
+						<img src="/images/themes/md-light-indigo.svg" alt="Material Light Indigo" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'md-light-deeppurple')">
-						<img src="images/themes/md-light-deeppurple.svg" alt="Material Light Deep Purple" />
+						<img src="/images/themes/md-light-deeppurple.svg" alt="Material Light Deep Purple" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'md-dark-indigo', true)">
-						<img src="images/themes/md-dark-indigo.svg" alt="Material Dark Indigo" />
+						<img src="/images/themes/md-dark-indigo.svg" alt="Material Dark Indigo" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'md-dark-deeppurple', true)">
-						<img src="images/themes/md-dark-deeppurple.svg" alt="Material Dark Deep Purple" />
+						<img src="/images/themes/md-dark-deeppurple.svg" alt="Material Dark Deep Purple" />
 					</button>
 				</div>
 			</div>
@@ -93,22 +93,22 @@
 			<div class="grid free-themes">
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'mdc-light-indigo')">
-						<img src="images/themes/md-light-indigo.svg" alt="Material Compact Light Indigo"/>
+						<img src="/images/themes/md-light-indigo.svg" alt="Material Compact Light Indigo"/>
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'mdc-light-deeppurple')">
-						<img src="images/themes/md-light-deeppurple.svg" alt="Material Compact Deep Purple" />
+						<img src="/images/themes/md-light-deeppurple.svg" alt="Material Compact Deep Purple" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'mdc-dark-indigo', true)">
-						<img src="images/themes/md-dark-indigo.svg" alt="Material Compact Dark Indigo" />
+						<img src="/images/themes/md-dark-indigo.svg" alt="Material Compact Dark Indigo" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'mdc-dark-deeppurple', true)">
-						<img src="images/themes/md-dark-deeppurple.svg" alt="Material Compact Dark Deep Purple" />
+						<img src="/images/themes/md-dark-deeppurple.svg" alt="Material Compact Dark Deep Purple" />
 					</button>
 				</div>
 			</div>
@@ -117,7 +117,7 @@
 			<div class="grid free-themes">
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'tailwind-light')">
-						<img src="images/themes/tailwind-light.png" alt="Tailwind Light"/>
+						<img src="/images/themes/tailwind-light.png" alt="Tailwind Light"/>
 					</button>
 				</div>
 			</div>
@@ -126,7 +126,7 @@
 			<div class="grid free-themes">
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'fluent-light')">
-						<img src="images/themes/fluent-light.png" alt="Fluent Light"/>
+						<img src="/images/themes/fluent-light.png" alt="Fluent Light"/>
 					</button>
 				</div>
 			</div>
@@ -135,62 +135,62 @@
 			<div class="grid free-themes">
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'saga-blue')">
-						<img src="images/themes/saga-blue.png" alt="Saga Blue" />
+						<img src="/images/themes/saga-blue.png" alt="Saga Blue" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'saga-green')">
-						<img src="images/themes/saga-green.png" alt="Saga Green" />
+						<img src="/images/themes/saga-green.png" alt="Saga Green" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'saga-orange')">
-						<img src="images/themes/saga-orange.png" alt="Saga Orange" />
+						<img src="/images/themes/saga-orange.png" alt="Saga Orange" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'saga-purple')">
-						<img src="images/themes/saga-purple.png" alt="Saga Purple" />
+						<img src="/images/themes/saga-purple.png" alt="Saga Purple" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'vela-blue', true)">
-						<img src="images/themes/vela-blue.png" alt="Vela Blue" />
+						<img src="/images/themes/vela-blue.png" alt="Vela Blue" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'vela-green', true)">
-						<img src="images/themes/vela-green.png" alt="Vela Green" />
+						<img src="/images/themes/vela-green.png" alt="Vela Green" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'vela-orange', true)">
-						<img src="images/themes/vela-orange.png" alt="Vela Orange" />
+						<img src="/images/themes/vela-orange.png" alt="Vela Orange" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'vela-purple', true)">
-						<img src="images/themes/vela-purple.png" alt="Vela Purple" />
+						<img src="/images/themes/vela-purple.png" alt="Vela Purple" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'arya-blue', true)">
-						<img src="images/themes/arya-blue.png" alt="Arya Blue" />
+						<img src="/images/themes/arya-blue.png" alt="Arya Blue" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'arya-green', true)">
-						<img src="images/themes/arya-green.png" alt="Arya Green" />
+						<img src="/images/themes/arya-green.png" alt="Arya Green" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'arya-orange', true)">
-						<img src="images/themes/arya-orange.png" alt="Arya Orange" />
+						<img src="/images/themes/arya-orange.png" alt="Arya Orange" />
 					</button>
 				</div>
 				<div class="col-3 text-center">
 					<button class="p-link" type="button" @click="changeTheme($event, 'arya-purple', true)">
-						<img src="images/themes/arya-purple.png" alt="Arya Purple" />
+						<img src="/images/themes/arya-purple.png" alt="Arya Purple" />
 					</button>
 				</div>
 			</div>

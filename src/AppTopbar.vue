@@ -58,15 +58,11 @@ export default defineComponent({
 		const topbarImage = () => {
 			return appState.darkTheme ? 'images/logo-white.svg' : 'images/logo-dark.svg'
 		}
-		
-		const darkTheme = computed(() => {
-			return appState.darkTheme
-		})
 
 		return {
 			onMenuToggle,
 			onTopbarMenuToggle,
-			darkTheme
+			topbarImage
 		}
 	}
 })

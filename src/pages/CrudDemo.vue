@@ -278,7 +278,7 @@
 			const deleteProductsDialog = ref(false)
 			const product = ref({} as any)
 			const selectedProducts = ref([] as any[])
-			const filters = ref([] as string[])
+			const filters = ref({} as any)
 			const submitted = ref(false)
 			const dt = ref({} as any)
 			const statuses = [

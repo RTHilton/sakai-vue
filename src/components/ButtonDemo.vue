@@ -124,28 +124,33 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		data() {
+<script lang="ts">
+	import { defineComponent } from 'vue'
+
+	export default defineComponent({
+		name: 'ButtonDemo',
+		setup() {
+			const items = [
+				{
+					label: 'Update',
+					icon: 'pi pi-refresh'
+				},
+				{
+					label: 'Delete',
+					icon: 'pi pi-times'
+				},
+				{
+					separator:true
+				},
+				{
+					label: 'Home',
+					icon: 'pi pi-home'
+				},
+			]
+
 			return {
-				items: [
-					{
-						label: 'Update',
-						icon: 'pi pi-refresh'
-					},
-					{
-						label: 'Delete',
-						icon: 'pi pi-times'
-					},
-					{
-						separator:true
-					},
-					{
-						label: 'Home',
-						icon: 'pi pi-home'
-					},
-				]
+				items
 			}
 		}
-	}
+	})
 </script>

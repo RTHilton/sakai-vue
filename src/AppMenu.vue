@@ -7,30 +7,39 @@
 	</div>
 </template>
 
-<script>
-import AppSubmenu from './AppSubmenu';
+<script lang="ts">
+	import { defineComponent, computed, inject } from 'vue'
+	import AppSubmenu from './AppSubmenu.vue'
 
-export default {
-	props: {
-		model: Array
-	},
-    methods: {
-        onMenuItemClick(event) {
-            this.$emit('menuitem-click', event);
-        },
-		bannerImage() {
-			return this.$appState.darkTheme ? 'images/banner-primeblocks-dark.png' : 'images/banner-primeblocks.png';
+	export default defineComponent({
+		props: {
+			model: Array
+		},
+		components: {
+			AppSubmenu
+		},
+		setup(props, { emit }) {
+			const appState = inject('$appState') as { theme: string, inputStyle: string, darkTheme: boolean }
+
+			const onMenuItemClick = (event: any) => {
+				emit('menuitem-click', event)
+			}
+
+			const bannerImage = () => {
+				return appState.darkTheme ? 'images/banner-primeblocks-dark.png' : 'images/banner-primeblocks.png'
+			}
+
+			const darkTheme = computed(() => {
+				return appState.darkTheme
+			})
+
+			return {
+				onMenuItemClick,
+				darkTheme,
+				bannerImage
+			}
 		}
-    },
-	computed: {
-		darkTheme() {
-			return this.$appState.darkTheme;
-		}
-	},
-	components: {
-		'AppSubmenu': AppSubmenu
-	}
-}
+	})
 </script>
 
 <style scoped>

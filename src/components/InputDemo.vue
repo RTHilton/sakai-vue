@@ -215,90 +215,119 @@
 		</div>
 	</div>
 </template>
-<script>
-	import CountryService from '../service/CountryService';
-	export default {
-		data() {
-			return {
-				floatValue: null,
-				autoValue: null,
-				selectedAutoValue: null,
-				autoFilteredValue: [],
-				calendarValue: null,
-				inputNumberValue: null,
-				chipsValue: null,
-				sliderValue: 50,
-				ratingValue: null,
-				colorValue: '1976D2',
-				radioValue: null,
-				checkboxValue: [],
-				switchValue: false,
-				listboxValues: [
-					{name: 'New York', code: 'NY'},
-					{name: 'Rome', code: 'RM'},
-					{name: 'London', code: 'LDN'},
-					{name: 'Istanbul', code: 'IST'},
-					{name: 'Paris', code: 'PRS'}
-				],
-				listboxValue: null,
-				dropdownValues: [
-					{name: 'New York', code: 'NY'},
-					{name: 'Rome', code: 'RM'},
-					{name: 'London', code: 'LDN'},
-					{name: 'Istanbul', code: 'IST'},
-					{name: 'Paris', code: 'PRS'}
-				],
-				dropdownValue: null,
-				multiselectValue: null,
-				multiselectValues: [
-					{name: 'Australia', code: 'AU'},
-					{name: 'Brazil', code: 'BR'},
-					{name: 'China', code: 'CN'},
-					{name: 'Egypt', code: 'EG'},
-					{name: 'France', code: 'FR'},
-					{name: 'Germany', code: 'DE'},
-					{name: 'India', code: 'IN'},
-					{name: 'Japan', code: 'JP'},
-					{name: 'Spain', code: 'ES'},
-					{name: 'United States', code: 'US'}
-				],
-				toggleValue: false,
-				selectButtonValues1: [
-					{name: 'Option 1', code: 'O1'},
-					{name: 'Option 2', code: 'O2'},
-					{name: 'Option 3', code: 'O3'},
-				],
-				selectButtonValue1: null,
-				selectButtonValues2: [
-					{name: 'Option 1', code: 'O1'},
-					{name: 'Option 2', code: 'O2'},
-					{name: 'Option 3', code: 'O3'},
-				],
-				selectButtonValue2: null,
-				inputGroupValue: false,
-				knobValue: 20
-			}
-		},
-		countryService: null,
-		created() {
-			this.countryService = new CountryService();
-		},
-		mounted() {
-			this.countryService.getCountries().then(data => this.autoValue = data);
-		},
-		methods: {
-			searchCountry(event) {
+<script lang="ts">
+	import { defineComponent, ref, onMounted } from 'vue'
+	import CountryService from '@/service/CountryService'
+
+	export default defineComponent({
+		name: 'InputDemo',
+		setup() {
+			const countryService = new CountryService()
+
+			const floatValue = ref(null)
+			const autoValue = ref(null)
+			const selectedAutoValue = ref(null)
+			const autoFilteredValue = ref([])
+			const calendarValue = ref(null)
+			const inputNumberValue = ref(null)
+			const chipsValue = ref(null)
+			const sliderValue = ref(50)
+			const ratingValue = ref(null)
+			const colorValue = ref('1976D2')
+			const radioValue = ref(null)
+			const checkboxValue = ref([])
+			const switchValue = ref(false)
+			const listboxValues = [
+				{name: 'New York', code: 'NY'},
+				{name: 'Rome', code: 'RM'},
+				{name: 'London', code: 'LDN'},
+				{name: 'Istanbul', code: 'IST'},
+				{name: 'Paris', code: 'PRS'}
+			]
+			const listboxValue = ref(null)
+			const dropdownValues = [
+				{name: 'New York', code: 'NY'},
+				{name: 'Rome', code: 'RM'},
+				{name: 'London', code: 'LDN'},
+				{name: 'Istanbul', code: 'IST'},
+				{name: 'Paris', code: 'PRS'}
+			]
+			const dropdownValue= ref(null)
+			const multiselectValue= ref(null)
+			const multiselectValues = [
+				{name: 'Australia', code: 'AU'},
+				{name: 'Brazil', code: 'BR'},
+				{name: 'China', code: 'CN'},
+				{name: 'Egypt', code: 'EG'},
+				{name: 'France', code: 'FR'},
+				{name: 'Germany', code: 'DE'},
+				{name: 'India', code: 'IN'},
+				{name: 'Japan', code: 'JP'},
+				{name: 'Spain', code: 'ES'},
+				{name: 'United States', code: 'US'}
+			]
+			const toggleValue= ref(false)
+			const selectButtonValues1 = [
+				{name: 'Option 1', code: 'O1'},
+				{name: 'Option 2', code: 'O2'},
+				{name: 'Option 3', code: 'O3'},
+			]
+			const selectButtonValue1= ref(null)
+			const selectButtonValues2 = [
+				{name: 'Option 1', code: 'O1'},
+				{name: 'Option 2', code: 'O2'},
+				{name: 'Option 3', code: 'O3'},
+			]
+			const selectButtonValue2 = ref(null)
+			const inputGroupValue = ref(false)
+			const knobValue = ref(20)
+
+			const searchCountry = (event) => {
 				setTimeout(() => {
 					if (!event.query.trim().length) {
-						this.autoFilteredValue = [...this.autoValue];
+						autoFilteredValue.value = [...autoValue.value]
 					}
 					else {
-						this.autoFilteredValue = this.autoValue.filter((country) => {
-							return country.name.toLowerCase().startsWith(event.query.toLowerCase());
+						autoFilteredValue.value = autoValue.value.filter((country) => {
+							return country.name.toLowerCase().startsWith(event.query.toLowerCase())
 						});
 					}
 				}, 250);
 			}
+
+			onMounted(() => {
+				countryService.getCountries()
+					.then(data => autoValue.value = data)
+			})
+
+			return {
+				floatValue,
+				selectedAutoValue,
+				autoFilteredValue,
+				calendarValue,
+				inputNumberValue,
+				chipsValue,
+				sliderValue,
+				ratingValue,
+				colorValue,
+				radioValue,
+				checkboxValue,
+				switchValue,
+				listboxValues,
+				listboxValue,
+				dropdownValues,
+				dropdownValue,
+				multiselectValue,
+				multiselectValues,
+				toggleValue,
+				selectButtonValues1,
+				selectButtonValue1,
+				selectButtonValues2,
+				selectButtonValue2,
+				inputGroupValue,
+				knobValue,
+				searchCountry
+			}
 		}
-	}
+	})
 </script>

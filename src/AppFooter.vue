@@ -6,20 +6,27 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		name: "AppFooter",
-		methods: {
-			footerImage() {
-				return this.$appState.darkTheme ? 'images/logo-white.svg' : 'images/logo-dark.svg';
+<script lang="ts">
+	import { defineComponent, computed, inject } from 'vue'
+
+	export default defineComponent({
+		name: 'AppFooter',
+		setup() {
+			const appState = inject('$appState') as { theme: string, inputStyle: string, darkTheme: boolean }
+
+			const footerImage = () => {
+				return appState.darkTheme ? 'images/logo-white.svg' : 'images/logo-dark.svg'
 			}
-		},
-		computed: {
-			darkTheme() {
-				return this.$appState.darkTheme;
+
+			const darkTheme = computed(() => {
+				return appState.theme.startsWith('saga');
+			})
+
+			return {
+				darkTheme
 			}
 		}
-	}
+	})
 </script>
 
 <style scoped>

@@ -22,25 +22,30 @@
 	</div>
 </template>
 
-<script>
-	import NodeService from '../service/NodeService'
+<script lang="ts">
+	import { defineComponent, ref, onMounted } from 'vue'
+	import NodeService from '@/service/NodeService'
 
-	export default {
-		data() {
+	export default defineComponent({
+		name: 'TreeDemo',
+		setup() {
+			const nodeService = new NodeService()
+			const treeValue = ref(null)
+			const selectedTreeValue = ref(null)
+			const treeTableValue = ref(null)
+			const selectedTreeTableValue = ref(null)
+
+			onMounted(() => {
+				nodeService.getTreeNodes().then(data => treeValue.value = data)
+				nodeService.getTreeTableNodes().then(data => treeTableValue.value = data)
+			})
+
 			return {
-				treeValue: null,
-				selectedTreeValue: null,
-				treeTableValue: null,
-				selectedTreeTableValue: null,
+				treeValue,
+				selectedTreeValue,
+				treeTableValue,
+				selectedTreeTableValue
 			}
-		},
-		nodeService: null,
-		created() {
-			this.nodeService = new NodeService();
-		},
-		mounted() {
-			this.nodeService.getTreeNodes().then(data => this.treeValue = data);
-			this.nodeService.getTreeTableNodes().then(data => this.treeTableValue = data);
-		},
-	}
+		}
+	})
 </script>

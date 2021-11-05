@@ -12,12 +12,22 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		methods: {
-			onUpload() {
-				this.$toast.add({severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000});
+<script lang="ts">
+	import { defineComponent } from 'vue'
+	import { useToast } from 'primevue/usetoast'
+
+	export default defineComponent({
+		name: 'FileDemo',
+		setup() {
+			const toast = useToast()
+
+			const onUpload = () => {
+				toast.add({severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000})
+			}
+
+			return {
+				onUpload
 			}
 		}
-	}
+	})
 </script>

@@ -1,1 +1,14 @@
 // Suggested location to add your overrides so that migration would be easy by just updating the SASS folder in the future
+
+// make menu full-height without rounded corners
+.layout-sidebar {
+	border-radius: 0;
+	height: calc(100vh - 5rem);
+	top: 5rem;
+	left: 0;
+}
+
+// Don't double the left padding when menu is out
+.layout-main-container {
+	padding-left: 2rem;
+}

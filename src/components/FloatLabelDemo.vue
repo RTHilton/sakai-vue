@@ -67,60 +67,70 @@
 						<Textarea inputId="textarea" rows="3" cols="30" v-model="value10"></Textarea>
 						<label for="textarea">Textarea</label>
 					</span>
-				</div>				
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
-<script>
-import CountryService from '../service/CountryService';
-export default {
-	data() {
-		return {
-			countries: [],
-			filteredCountries: null,
-			cities: [
+<script lang="ts">
+	import { defineComponent, ref, onMounted } from 'vue'
+	import CountryService from '@/service/CountryService'
+	
+	export default defineComponent({
+		name: 'FloatLabelDemo',
+		setup() {
+			const countryService = new CountryService()
+
+			const countries = ref([] as any[])
+			const filteredCountries = ref([] as any[])
+			const cities = [
 				{ name: 'New York', code: 'NY' },
 				{ name: 'Rome', code: 'RM' },
 				{ name: 'London', code: 'LDN' },
 				{ name: 'Istanbul', code: 'IST' },
 				{ name: 'Paris', code: 'PRS' },
-			],
-			value1: null,
-			value2: null,
-			value3: null,
-			value4: null,
-			value5: null,
-			value6: null,
-			value7: null,
-			value8: null,
-			value9: null,
-			value10: null,
-		};
-	},
-	created() {
-		this.countryService = new CountryService();
-	},
-	mounted() {
-		this.countryService.getCountries().then((countries) => {
-			this.countries = countries;
-		});
-	},
-	methods: {
-		searchCountry(event) {
-			// in a real application, make a request to a remote url with the query and
-			// return filtered results, for demo we filter at client side
-			const filtered = [];
-			const query = event.query;
-			for (let i = 0; i < this.countries.length; i++) {
-				const country = this.countries[i];
-				if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-					filtered.push(country);
-				}
+			]
+			const value1 = ref(null)
+			const value2 = ref(null)
+			const value3 = ref(null)
+			const value4 = ref(null)
+			const value5 = ref(null)
+			const value6 = ref(null)
+			const value7 = ref(null)
+			const value8 = ref(null)
+			const value9 = ref(null)
+			const value10 = ref(null)
+
+			const searchCountry = (event: any) => {
+				const query = event.query
+				filteredCountries.value = countries.value.filter((country) => {
+					return country.name.toLowerCase().indexOf(query.toLowerCase()) == 0
+				})
 			}
-			this.filteredCountries = filtered;
-		},
-	},
-};
+
+			onMounted(() => {
+				countryService.getCountries().then((data) => {
+					countries.value = data
+				})
+			})
+
+			return {
+				countries,
+				filteredCountries,
+				cities,
+				value1,
+				value2,
+				value3,
+				value4,
+				value5,
+				value6,
+				value7,
+				value8,
+				value9,
+				value10,
+				searchCountry
+			}
+		}
+	})
 </script>

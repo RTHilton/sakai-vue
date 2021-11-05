@@ -8,9 +8,13 @@
 			<i class="pi pi-bars"></i>
 		</button>
 
-		<button class="p-link layout-topbar-menu-button layout-topbar-button"
-			v-styleclass="{ selector: '@next', enterClass: 'hidden', enterActiveClass: 'scalein', 
-			leaveToClass: 'hidden', leaveActiveClass: 'fadeout', hideOnOutsideClick: true}">
+		<button
+			class="p-link layout-topbar-menu-button layout-topbar-button"
+			v-styleclass="{
+				selector: '@next', enterClass: 'hidden', enterActiveClass: 'scalein',
+				leaveToClass: 'hidden', leaveActiveClass: 'fadeout', hideOnOutsideClick: true
+			}"
+		>
 			<i class="pi pi-ellipsis-v"></i>
 		</button>
 		<ul class="layout-topbar-menu hidden lg:flex origin-top">
@@ -36,23 +40,34 @@
 	</div>
 </template>
 
-<script>
-export default {
-    methods: {
-        onMenuToggle(event) {
-            this.$emit('menu-toggle', event);
-        },
-		onTopbarMenuToggle(event) {
-            this.$emit('topbar-menu-toggle', event);
-        },
-		topbarImage() {
-			return this.$appState.darkTheme ? 'images/logo-white.svg' : 'images/logo-dark.svg';
+<script lang="ts">
+import { defineComponent, computed, inject } from 'vue'
+export default defineComponent({
+	name: 'AppTopbar',
+	setup(_, { emit }) {
+		const appState = inject('$appState') as { theme: string, inputStyle: string, darkTheme: boolean }
+		
+		const onMenuToggle = (event: any) => {
+			emit('menu-toggle', event)
 		}
-    },
-	computed: {
-		darkTheme() {
-			return this.$appState.darkTheme;
+		
+		const onTopbarMenuToggle = (event: any) => {
+			emit('topbar-menu-toggle', event)
+		}
+
+		const topbarImage = () => {
+			return appState.darkTheme ? 'images/logo-white.svg' : 'images/logo-dark.svg'
+		}
+		
+		const darkTheme = computed(() => {
+			return appState.darkTheme
+		})
+
+		return {
+			onMenuToggle,
+			onTopbarMenuToggle,
+			darkTheme
 		}
 	}
-}
+})
 </script>

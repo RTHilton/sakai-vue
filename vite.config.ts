@@ -7,11 +7,4 @@ export default defineConfig({
 		alias: { '@': '/src' }
 	},
 	plugins: [vue()],
-	// css: {
-	// 	preprocessorOptions: {
-	// 		scss: {
-	// 			additionalData: `@import "@/components/styles/style.scss";`
-	// 		}
-	// 	}
-	// }
 })

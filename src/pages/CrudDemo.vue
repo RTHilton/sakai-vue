@@ -33,7 +33,7 @@
 				<DataTable
 					ref="dt"
 					:value="products"
-					v-model:selection="selectedProducts"
+					:selection="selectedProducts"
 					data-key="id"
 					:paginator="true"
 					:rows="10"
@@ -120,7 +120,7 @@
 				</DataTable>
 
 				<Dialog
-					v-model:visible="productDialog"
+					:visible="productDialog"
 					:style="{ width: '450px' }"
 					header="Product Details"
 					:modal="true"
@@ -215,7 +215,7 @@
 				</Dialog>
 
 				<Dialog
-					v-model:visible="deleteProductDialog"
+					:visible="deleteProductDialog"
 					:style="{ width: '450px' }"
 					header="Confirm"
 					:modal="true"
@@ -239,7 +239,7 @@
 				</Dialog>
 
 				<Dialog
-					v-model:visible="deleteProductsDialog"
+					:visible="deleteProductsDialog"
 					:style="{ width: '450px' }"
 					header="Confirm"
 					:modal="true"
@@ -278,7 +278,7 @@
 			const deleteProductsDialog = ref(false)
 			const product = ref({} as any)
 			const selectedProducts = ref([] as any[])
-			const filters = ref([] as string[])
+			const filters = ref({} as any)
 			const submitted = ref(false)
 			const dt = ref({} as any)
 			const statuses = [

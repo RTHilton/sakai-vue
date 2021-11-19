@@ -10,7 +10,6 @@
 					:rows="10"
 					data-key="id"
 					:rowHover="true"
-					v-model:filters="filters1"
 					filterDisplay="menu"
 					:loading="loading1"
 					:filters="filters1"
@@ -279,7 +278,7 @@
 				<h5>Row Expand</h5>
 				<DataTable
 					:value="products"
-					v-model:expandedRows="expandedRows"
+					:expandedRows="expandedRows"
 					data-key="id"
 					responsiveLayout="scroll"
 				>
@@ -421,16 +420,15 @@
 			const customerService = new CustomerService()
 			const productService = new ProductService()
 
-			const customer1 = ref(null)
-			const customer2 = ref(null)
-			const customer3 = ref(null)
-			const filters1 = ref(null)
-			const filters2 = ref({})
+			const customer1 = ref(null as any[] | null)
+			const customer2 = ref(null as any[] | null)
+			const customer3 = ref(null as any[] | null)
+			const filters1 = ref(null as any | null)
 			const loading1 = ref(true)
 			const loading2 = ref(true)
 			const idFrozen = ref(false)
-			const products = ref(null)
-			const expandedRows = ref([])
+			const products = ref(null as any[] | null)
+			const expandedRows = ref([] as any[] | null | undefined)
 			
 			const statuses = [
 				'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
@@ -468,18 +466,18 @@
 			}
 
 			const expandAll = () => {
-				expandedRows.value = products.value.filter(p => p.id)
+				expandedRows.value = products.value?.filter(p => p.id)
 			}
 
 			const collapseAll = () => {
 				expandedRows.value = null
 			}
 
-			const formatCurrency = (value) => {
+			const formatCurrency = (value: number) => {
 				return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 			}
 
-			const formatDate = (value) => {
+			const formatDate = (value: Date) => {
 				return value.toLocaleDateString('en-US', {
 					day: '2-digit',
 					month: '2-digit',
@@ -487,7 +485,7 @@
 				})
 			}
 
-			const calculateCustomerTotal = (name) => {
+			const calculateCustomerTotal = (name: string) => {
 				let total = 0
 				if (customer3.value) {
 					for (let customer of customer3.value) {
@@ -505,7 +503,7 @@
 				customerService.getCustomersLarge().then(data => {
 					customer1.value = data
 					loading1.value = false
-					customer1.value.forEach(customer => customer.date = new Date(customer.date))
+					customer1.value?.forEach(customer => customer.date = new Date(customer.date))
 				})
 				customerService.getCustomersLarge().then(data => customer2.value = data)
 				customerService.getCustomersMedium().then(data => customer3.value = data)

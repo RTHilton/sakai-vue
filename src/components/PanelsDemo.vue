@@ -224,12 +224,13 @@
 </template>
 
 <script lang="ts">
+	import Menu from 'primevue/menu'
 	import { defineComponent, ref } from 'vue'
 
 	export default defineComponent({
 		name: 'PanelsDemo',
 		setup() {
-			const menu = ref(null)
+			const menu = ref(null as Menu | null)
 			const toolbarItems = [
 				{
 					label: 'Save',
@@ -255,8 +256,8 @@
 				{ label: 'Delete', icon: 'pi pi-fw pi-trash' },
 			]
 
-			const toggle = () => {
-				menu.value.toggle(event);
+			const toggle = (event: Event) => {
+				menu.value?.toggle(event)
 			}
 			return {
 				menu,

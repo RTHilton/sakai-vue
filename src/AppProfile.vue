@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-profile">
 		<div>
-			<img src="images/profile.png" alt="profile image" />
+			<img src="/images/profile.png" alt="profile image" />
 		</div>
 		<button class="p-link layout-profile-link" @click="onClick">
 			<span class="username">Claire Williams</span>

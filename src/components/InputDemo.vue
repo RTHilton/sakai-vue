@@ -244,7 +244,7 @@
 				{name: 'Istanbul', code: 'IST'},
 				{name: 'Paris', code: 'PRS'}
 			]
-			const listboxValue = ref(null)
+			const listboxValue = ref(null as string | null)
 			const dropdownValues = [
 				{name: 'New York', code: 'NY'},
 				{name: 'Rome', code: 'RM'},
@@ -252,8 +252,8 @@
 				{name: 'Istanbul', code: 'IST'},
 				{name: 'Paris', code: 'PRS'}
 			]
-			const dropdownValue= ref(null)
-			const multiselectValue= ref(null)
+			const dropdownValue= ref(null as string[] | null)
+			const multiselectValue= ref(null as string | null)
 			const multiselectValues = [
 				{name: 'Australia', code: 'AU'},
 				{name: 'Brazil', code: 'BR'},
@@ -272,13 +272,13 @@
 				{name: 'Option 2', code: 'O2'},
 				{name: 'Option 3', code: 'O3'},
 			]
-			const selectButtonValue1= ref(null)
+			const selectButtonValue1= ref(null as string | null)
 			const selectButtonValues2 = [
 				{name: 'Option 1', code: 'O1'},
 				{name: 'Option 2', code: 'O2'},
 				{name: 'Option 3', code: 'O3'},
 			]
-			const selectButtonValue2 = ref(null)
+			const selectButtonValue2 = ref(null as string | null)
 			const inputGroupValue = ref(false)
 			const knobValue = ref(20)
 

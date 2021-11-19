@@ -52,11 +52,11 @@
 				<h4>Avatar</h4>
 				<h5>Avatar Group</h5>
 				<AvatarGroup class="mb-3">
-					<Avatar image="images/avatar/amyelsner.png" size="large" shape="circle"></Avatar>
-					<Avatar image="images/avatar/asiyajavayant.png" size="large" shape="circle"></Avatar>
-					<Avatar image="images/avatar/onyamalimba.png" size="large" shape="circle"></Avatar>
-					<Avatar image="images/avatar/ionibowcher.png" size="large" shape="circle"></Avatar>
-					<Avatar image="images/avatar/xuxuefeng.png" size="large" shape="circle"></Avatar>
+					<Avatar image="/images/avatar/amyelsner.png" size="large" shape="circle"></Avatar>
+					<Avatar image="/images/avatar/asiyajavayant.png" size="large" shape="circle"></Avatar>
+					<Avatar image="/images/avatar/onyamalimba.png" size="large" shape="circle"></Avatar>
+					<Avatar image="/images/avatar/ionibowcher.png" size="large" shape="circle"></Avatar>
+					<Avatar image="/images/avatar/xuxuefeng.png" size="large" shape="circle"></Avatar>
 					<Avatar
 						label="+2"
 						shape="circle"
@@ -150,9 +150,9 @@
 
 				<h5>Image</h5>
 				<div class="flex align-items-center flex-column sm:flex-row">
-					<Chip label="Amy Elsner" image="images/avatar/amyelsner.png" class="mr-2 mb-2"></Chip>
-					<Chip label="Asiya Javayant" image="images/avatar/asiyajavayant.png" class="mr-2 mb-2"></Chip>
-					<Chip label="Onyama Limba" image="images/avatar/onyamalimba.png" class="mr-2 mb-2"></Chip>
+					<Chip label="Amy Elsner" image="/images/avatar/amyelsner.png" class="mr-2 mb-2"></Chip>
+					<Chip label="Asiya Javayant" image="/images/avatar/asiyajavayant.png" class="mr-2 mb-2"></Chip>
+					<Chip label="Onyama Limba" image="/images/avatar/onyamalimba.png" class="mr-2 mb-2"></Chip>
 				</div>
 			</div>
 
@@ -179,39 +179,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onBeforeUnmount, onMounted } from 'vue'
-export default defineComponent({
-	name: 'MiscDemo',
-	setup() {
-		const value = ref(0)
-		const interval = ref(undefined as number | undefined)
+	import { defineComponent, ref, onBeforeUnmount, onMounted } from 'vue'
+	export default defineComponent({
+		name: 'MiscDemo',
+		setup() {
+			const value = ref(0)
+			const interval = ref(0)
 
-		const startProgress = () => {
-			interval.value = setInterval(() => {
-				let newValue = value.value + Math.floor(Math.random() * 10) + 1;
-				if (newValue >= 100) {
-					newValue = 100;
-				}
-				value.value = newValue;
-			}, 2000)
+			const startProgress = () => {
+				interval.value = setInterval(() => {
+					let newValue = value.value + Math.floor(Math.random() * 10) + 1;
+					if (newValue >= 100) {
+						newValue = 100;
+					}
+					value.value = newValue;
+				}, 2000)
+			}
+
+			const endProgress = () => {
+				clearInterval(interval.value)
+				interval.value = 0
+			}
+
+			onMounted(() => {
+				startProgress()
+			})
+
+			onBeforeUnmount(() => {
+				endProgress()
+			})
+
+			return {
+				value
+			}
 		}
-
-		const endProgress = () => {
-			clearInterval(interval.value)
-			interval.value = undefined
-		}
-
-		onMounted(() => {
-			startProgress()
-		})
-
-		onBeforeUnmount(() => {
-			endProgress()
-		})
-
-		return {
-			value
-		}
-	}
-})
+	})
 </script>

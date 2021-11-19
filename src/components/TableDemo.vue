@@ -420,15 +420,15 @@
 			const customerService = new CustomerService()
 			const productService = new ProductService()
 
-			const customer1 = ref(null as any[] | null)
-			const customer2 = ref(null as any[] | null)
-			const customer3 = ref(null as any[] | null)
-			const filters1 = ref(null as any | null)
+			const customer1 = ref([] as any[])
+			const customer2 = ref([] as any[])
+			const customer3 = ref([] as any[])
+			const filters1 = ref({} as any)
 			const loading1 = ref(true)
 			const loading2 = ref(true)
 			const idFrozen = ref(false)
-			const products = ref(null as any[] | null)
-			const expandedRows = ref([] as any[] | null | undefined)
+			const products = ref([] as any[])
+			const expandedRows = ref([] as any[] | null)
 			
 			const statuses = [
 				'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
@@ -503,7 +503,7 @@
 				customerService.getCustomersLarge().then(data => {
 					customer1.value = data
 					loading1.value = false
-					customer1.value?.forEach(customer => customer.date = new Date(customer.date))
+					customer1.value.forEach((customer: any) => customer.date = new Date(customer.date))
 				})
 				customerService.getCustomersLarge().then(data => customer2.value = data)
 				customerService.getCustomersMedium().then(data => customer3.value = data)

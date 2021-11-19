@@ -29,13 +29,8 @@
 				return appState.darkTheme ? 'images/banner-primeblocks-dark.png' : 'images/banner-primeblocks.png'
 			}
 
-			const darkTheme = computed(() => {
-				return appState.darkTheme
-			})
-
 			return {
 				onMenuItemClick,
-				darkTheme,
 				bannerImage
 			}
 		}

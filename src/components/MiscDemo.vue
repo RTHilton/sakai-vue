@@ -153,20 +153,6 @@
 					<Chip label="Amy Elsner" image="images/avatar/amyelsner.png" class="mr-2 mb-2"></Chip>
 					<Chip label="Asiya Javayant" image="images/avatar/asiyajavayant.png" class="mr-2 mb-2"></Chip>
 					<Chip label="Onyama Limba" image="images/avatar/onyamalimba.png" class="mr-2 mb-2"></Chip>
-					<Chip label="Xuxue Feng" image="images/avatar/xuxuefeng.png" :removable="true" class="mb-2"></Chip>
-				</div>
-
-				<h5>Styling</h5>
-				<div class="flex align-items-center flex-column sm:flex-row">
-					<Chip label="Action" class="mr-2 mb-2 custom-chip"></Chip>
-					<Chip label="Comedy" class="mr-2 mb-2 custom-chip"></Chip>
-					<Chip label="Onyama Limba" image="images/avatar/onyamalimba.png" class="mr-2 mb-2 custom-chip"></Chip>
-					<Chip
-						label="Xuxue Feng"
-						image="images/avatar/xuxuefeng.png"
-						:removable="true"
-						class="mb-2 custom-chip"
-					></Chip>
 				</div>
 			</div>
 
@@ -193,39 +179,39 @@
 </template>
 
 <script lang="ts">
-	import { defineComponent, ref, onBeforeUnmount, onMounted } from 'vue'
-	export default defineComponent({
-		name: 'MiscDemo',
-		setup() {
-			const value = ref(0)
-			const interval = ref(null)
+import { defineComponent, ref, onBeforeUnmount, onMounted } from 'vue'
+export default defineComponent({
+	name: 'MiscDemo',
+	setup() {
+		const value = ref(0)
+		const interval = ref(undefined as number | undefined)
 
-			const startProgress = () => {
-				interval.value = setInterval(() => {
-					let newValue = value.value + Math.floor(Math.random() * 10) + 1;
-					if (newValue >= 100) {
-						newValue = 100;
-					}
-					value.value = newValue;
-				}, 2000)
-			}
-
-			const endProgress = () => {
-				clearInterval(interval.value)
-				interval.value = null
-			}
-
-			onMounted(() => {
-				startProgress()
-			})
-
-			onBeforeUnmount(() => {
-				endProgress()
-			})
-
-			return {
-				value
-			}
+		const startProgress = () => {
+			interval.value = setInterval(() => {
+				let newValue = value.value + Math.floor(Math.random() * 10) + 1;
+				if (newValue >= 100) {
+					newValue = 100;
+				}
+				value.value = newValue;
+			}, 2000)
 		}
-	})
+
+		const endProgress = () => {
+			clearInterval(interval.value)
+			interval.value = undefined
+		}
+
+		onMounted(() => {
+			startProgress()
+		})
+
+		onBeforeUnmount(() => {
+			endProgress()
+		})
+
+		return {
+			value
+		}
+	}
+})
 </script>
